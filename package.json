@@ -1,0 +1,25 @@
+{
+  "name": "shared-mobility-compass",
+  "version": "1.0.0",
+  "description": "A userful web application which uses the Shared Mobility API",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YahArt/shared-mobility-compass.git"
+  },
+  "keywords": [
+    "shared-mobility-api"
+  ],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/YahArt/shared-mobility-compass/issues"
+  },
+  "homepage": "https://github.com/YahArt/shared-mobility-compass#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.14"
+  }
+}
