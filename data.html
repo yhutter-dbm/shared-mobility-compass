@@ -32,14 +32,51 @@
       </div>
     </nav>
 
-    <div class="uk-container-expand data-container">
-      <div id="chartContainer">
-        <h1 class="uk-position-center white"><b>TODO ADD CHARTS</b></h1>
+    <div class="uk-container-expand background-black">
+      <div class="white" id="chartContainer">
+        <div class="chart-information">
+          <h1 class="white">Data</h1>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+          voluptatibus. Itaque accusamus, dicta porro, voluptates fugiat sunt
+          rerum molestiae quae quisquam, totam quo omnis dignissimos voluptatem
+          unde nihil excepturi quas. Lorem ipsum dolor sit amet consectetur
+          adipisicing elit. Vitae harum nobis vel nihil impedit, autem iure?
+          Amet hic nemo mollitia quibusdam culpa quidem, dolorum ea architecto,
+          fugiat debitis, quod id.
+
+          <h2 class="white">Info</h2>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
+          voluptatibus. Itaque accusamus, dicta porro, voluptates fugiat sunt
+          rerum molestiae quae quisquam, totam quo omnis dignissimos voluptatem
+          unde nihil excepturi quas.
+        </div>
+        <div class="chart-type-selection">
+          <div class="chart-card">
+            <h1 class="title">Bar Chart</h1>
+            <div class="content">
+              <canvas id="barChart" width="300" height="400"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h1 class="title">Bubble Chart</h1>
+            <div class="content">
+              <canvas id="bubbleChart" width="300" height="400"></canvas>
+            </div>
+          </div>
+          <div class="chart-card">
+            <h1 class="title">Line Chart</h1>
+            <div class="content">
+              <canvas id="lineChart" width="300" height="400"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <script src="./node_modules/uikit/dist/js/uikit-core.min.js"></script>
     <script src="./node_modules/uikit/dist/js/uikit-icons.min.js"></script>
+    <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
     <script src="./js/main.js" charset="utf-8"></script>
+    <script src="./js/data.js"></script>
   </body>
 </html>
