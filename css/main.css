@@ -47,3 +47,13 @@ body {
   height: calc(100vh - var(--navbar-height));
   background: #333333;
 }
+
+#routeContainer {
+  height: calc(100vh - var(--navbar-height));
+  background: #333333;
+}
+
+#chartContainer {
+  height: calc(100vh - var(--navbar-height));
+  background: #333333;
+}
