@@ -1,0 +1,7 @@
+{
+  "workbench.startupEditor": "newUntitledFile",
+  "git.autofetch": true,
+  "window.zoomLevel": 1,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
