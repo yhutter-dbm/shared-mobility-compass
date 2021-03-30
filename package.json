@@ -25,6 +25,7 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
+    "chartjs": "^0.3.24",
     "normalize.css": "^8.0.1",
     "uikit": "^3.6.18"
   }
