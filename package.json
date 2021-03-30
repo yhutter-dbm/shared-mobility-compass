@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/YahArt/shared-mobility-compass#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.14"
+    "browser-sync": "^2.26.14",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
