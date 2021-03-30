@@ -1,1 +1,49 @@
+@font-face {
+  font-family: PlainBold;
+  src: url("../fonts/Plain-Bold.otf") format("opentype");
+}
 
+@font-face {
+  font-family: PlainRegular;
+  src: url("../fonts/Plain-Regular.otf") format("opentype");
+}
+
+:root {
+  --navbar-height: 80px;
+}
+
+.uk-navbar-container {
+  background: white !important;
+}
+
+.uk-logo {
+  font-family: "PlainBold", monospace;
+  color: black;
+}
+
+.uk-navbar-nav li.uk-active a {
+  color: black;
+}
+
+.uk-navbar-nav li a {
+  font-family: "PlainRegular", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+body {
+  font-family: "PlainRegular", monospace;
+}
+
+.white {
+  color: white;
+}
+
+#mapContainer {
+  height: calc(100vh - var(--navbar-height));
+  background: #333333;
+}
