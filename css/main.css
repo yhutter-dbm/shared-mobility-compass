@@ -48,6 +48,17 @@ body {
 }
 
 #mapContainer {
-  height: calc(100vh - var(--navbar-height));
+  height: calc(200vh - var(--navbar-height));
   background: #333333;
+}
+
+#Filter {
+  background: whitesmoke;
+}
+
+#map {
+  height: 600px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
 }
