@@ -31,41 +31,56 @@
       </div>
     </nav>
 
-    <div class="uk-container-expand">
-      <div id="mapContainer">
-        <div class="uk-container" id="Filter">
-          <form>
+    <div class="uk-container-cover">
+      <div class="filter-and-search-container uk-margin-small-top">
+        <div id="searchContainer" class="uk-padding-small">
+          <button class="uk-button uk-button-default" id="searchButton">
+            <span uk-icon="icon: search"></span>
+          </button>
+          <form class="uk-search">
+            <input
+              class="uk-search-input"
+              type="search"
+              placeholder="Search..."
+            />
+          </form>
+        </div>
+
+        <div id="filterContainer" class="uk-padding-small">
+          <div class="filter-header">
+            <b>Filter</b>
+            <button class="uk-button uk-button-default" id="filterButton">
+              <span uk-icon="icon: table"></span>
+            </button>
+          </div>
+
+          <form class="uk-form-blank">
             <fieldset class="uk-fieldset uk-form-horizontal">
-              <legend class="uk-legend">Filter</legend>
-              <div class="uk-search uk-search-default">
-                <span uk-search-icon></span>
-                <input class="uk-search-input" type="search" placeholder="Search">
-              </div>
-              <div class="uk-margin">
-                <div class="uk-form-label"><b>Vehicle</b></div>
-                <div class="uk-form-controls uk-form-controls-text ">
-                  <label><input class="uk-checkbox" type="checkbox" name="checkbox1"> Bike </label><br>
-                  <label><input class="uk-checkbox" type="checkbox" name="checkbox2"> Car</label><br>
-                  <label><input class="uk-checkbox" type="checkbox" name="checkbox3"> Scooter</label>
-                </div>
-              </div>
-              <div class="uk-margin">
-                <div class="uk-form-label"><b>Price</b></div>
-                <input class="uk-range" type="range" min="0" max="100" step="0.1">
-              </div>
-              <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-select"><b>Company</b></label>
-                <div class="uk-form-controls">
-                    <select class="uk-select" id="form-horizontal-select">
-                        <option>Company 01</option>
-                        <option>Company 02</option>
-                    </select>
-                </div>
-              </div>
+              <p>Vehicle</p>
+              <span class="uk-badge">Bike</span>
+              <span class="uk-badge">Car</span>
+              <span class="uk-badge">Scooter</span>
+
+              <p>Price</p>
+              <input
+                class="uk-range"
+                type="range"
+                value="2"
+                min="0"
+                max="10"
+                step="0.1"
+              />
+
+              <p>Distributor</p>
+              <select class="uk-select">
+                <option>Distributor 1</option>
+                <option>Distributor 2</option>
+              </select>
             </fieldset>
-      
-        <div id="map"></div>
+          </form>
+        </div>
       </div>
+      <div id="mapContainer"></div>
     </div>
 
     <script src="./node_modules/uikit/dist/js/uikit-core.min.js"></script>
@@ -77,4 +92,3 @@
     ></script>
   </body>
 </html>
-
