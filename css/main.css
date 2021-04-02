@@ -53,6 +53,7 @@ body {
 
 #mapContainer {
   height: calc(100vh - var(--navbar-height));
+  border: none;
 }
 
 .filter-and-search-container {
