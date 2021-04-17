@@ -20,11 +20,15 @@ function _initMapBox() {
 // Get reference to button elements and register click handlers
 const searchButton = document.getElementById("searchButton");
 const searchContainer = document.getElementById("searchContainer");
-searchButton.addEventListener("click", () => _openSearch());
+searchButton?.addEventListener("click", () => _openSearch());
 
 const filterButton = document.getElementById("filterButton");
 const filterContainer = document.getElementById("filterContainer");
-filterButton.addEventListener("click", () => _openFilter());
+filterButton?.addEventListener("click", () => _openFilter());
 
-// Initialize map box
-_initMapBox();
+// Only initialize mapbox when we are on index.html or simply the initial route without any .html in the url.
+const mapRoute = window.location.href.indexOf('index.html') >= 0 || window.location.href.indexOf('.html') < 0;
+
+if (mapRoute) {
+  _initMapBox();
+}

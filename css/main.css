@@ -51,6 +51,11 @@ body {
   background: black;
 }
 
+.center {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 #mapContainer {
   height: calc(100vh - var(--navbar-height));
   border: none;
