@@ -1,8 +1,13 @@
 # Shared Mobility Compass
-A useful web application which uses the Shared Mobility API
+A useful web application which uses the Shared Mobility API.
+The web application uses the [Flask Library](https://flask.palletsprojects.com/en/1.1.x/) for the Server side logic.
+
+## Prerequisites
+* Python Version >= 3.x installed
+* Pip (Python Package Manager) installed
+
+Then execute the following command: `pip install flask`
+
 
 ## How to run
-First make sure you have [NodeJS](https://nodejs.org/en/) installed.
-
-Then simply navigate to this directory and run **npm install**. This will install all necessary packages.
-In order to run the Web Application with Browser Sync (Hot Reloading) simply type the command **npm run start** 
+Simply run the following command `python main.py`

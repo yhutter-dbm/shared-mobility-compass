@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Shared Mobility Compass - Data View</title>
-    <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css" />
-    <link rel="stylesheet" href="./node_modules/uikit/dist/css/uikit.min.css" />
-    <link rel="stylesheet" href="./css/main.css" />
-    <link rel="stylesheet" href="./css/data.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/normalize/css/normalize.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/uikit/css/uikit.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/data.css')}}">
   </head>
 
   <body class="background-black">
@@ -17,9 +17,9 @@
 
       <div class="uk-navbar-center">
         <ul class="uk-navbar-nav">
-          <li><a href="./index.html">Map /</a></li>
+          <li><a href="{{ url_for('index') }}">Map /</a></li>
           <li class="uk-active"><a href="#">Data /</a></li>
-          <li><a href="./route.html">Route</a></li>
+          <li><a href="{{ url_for('route') }}">Route</a></li>
         </ul>
       </div>
 
@@ -105,9 +105,9 @@
       </div>
     </div>
 
-    <script src="./node_modules/uikit/dist/js/uikit-core.min.js"></script>
-    <script src="./node_modules/uikit/dist/js/uikit-icons.min.js"></script>
-    <script src="./node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="./js/data.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit-icons.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='vendor/chartjs/js/chart.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/data.js')}}"></script>
   </body>
 </html>
