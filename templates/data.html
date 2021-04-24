@@ -19,7 +19,8 @@
         <ul class="uk-navbar-nav">
           <li><a href="{{ url_for('index') }}">Map /</a></li>
           <li class="uk-active"><a href="#">Data /</a></li>
-          <li><a href="{{ url_for('route') }}">Route</a></li>
+          <li><a href="{{ url_for('route') }}">Route /</a></li>
+          <li><a href="{{ url_for('shared_mobility_data') }}">Shared Mobility Data</a></li>
         </ul>
       </div>
 
@@ -105,6 +106,7 @@
       </div>
     </div>
 
+    <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit-icons.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/chartjs/js/chart.min.js')}}"></script>

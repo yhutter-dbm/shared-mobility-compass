@@ -1,9 +1,9 @@
 function _openSearch() {
-  searchContainer.classList.toggle("open");
+  searchContainer.toggleClass("open");
 }
 
 function _openFilter() {
-  filterContainer.classList.toggle("open");
+  filterContainer.toggleClass("open");
 }
 
 function _initMapBox() {
@@ -18,12 +18,12 @@ function _initMapBox() {
 }
 
 // Get reference to button elements and register click handlers
-const searchButton = document.getElementById("searchButton");
-const searchContainer = document.getElementById("searchContainer");
-searchButton.addEventListener("click", () => _openSearch());
+const searchButton = $("#searchButton");
+const searchContainer = $("#searchContainer");
+searchButton.click(() => _openSearch());
 
-const filterButton = document.getElementById("filterButton");
-const filterContainer = document.getElementById("filterContainer");
-filterButton.addEventListener("click", () => _openFilter());
+const filterButton = $("#filterButton");
+const filterContainer = $("#filterContainer");
+filterButton.click(() => _openFilter());
 
 _initMapBox();

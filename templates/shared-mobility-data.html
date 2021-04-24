@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/normalize/css/normalize.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/uikit/css/uikit.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/route.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/shared-mobility-data.css')}}">
   </head>
 
   <body>
@@ -19,8 +19,9 @@
         <ul class="uk-navbar-nav">
           <li><a href="{{ url_for('index') }}">Map /</a></li>
           <li><a href="{{ url_for('data') }}">Data /</a></li>
-          <li class="uk-active"><a href="#">Route /</a></li>
-          <li><a href="{{ url_for('shared_mobility_data') }}">Shared Mobility Data</a></li>
+          <li><a href="{{ url_for('route') }}">Route /</a></li>
+          <li class="uk-active"><a href="#">Shared Mobility Data</a></li>
+
         </ul>
       </div>
 
@@ -33,14 +34,19 @@
       </div>
     </nav>
 
-    <div class="uk-container-expand">
-      <div id="routeContainer">
-        <h1 class="uk-position-center white"><b>TODO ADD ROUTES</b></h1>
-      </div>
+    <div class="uk-container">
+        <div id="sharedMobilityDataContainer">
+            <button class="uk-button uk-button-default uk-button-large" id="allStationInformationsButton">Alle Informationen zu Stationen</button>
+            <p id="allStationInformationsRequestResponse"></p>
+
+            <button class="uk-button uk-button-default uk-button-large" id="stationInformationFromPostCodeButton">Stationen in Mels</button>
+            <p id="stationInformationWithPostCodeRequestResponse"></p>
+        </div>
     </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit-icons.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/shared-mobility-data.js')}}"></script>
   </body>
 </html>

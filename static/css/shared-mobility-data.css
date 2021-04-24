@@ -1,0 +1,4 @@
+#sharedMobilityDataContainer {
+    display: flex;
+    flex-direction: column;
+}
