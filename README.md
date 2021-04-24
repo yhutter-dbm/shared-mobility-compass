@@ -6,7 +6,9 @@ The web application uses the [Flask Library](https://flask.palletsprojects.com/e
 * Python Version >= 3.x installed
 * Pip (Python Package Manager) installed
 
-Then execute the following command: `pip install flask`
+Then execute the following commands:
+* `pip install flask`
+* `pip install --user pandas==1.0.3`
 
 
 ## How to run

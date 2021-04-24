@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import json
+import pandas as pd
 import logging
 import os
 
@@ -46,17 +47,24 @@ def station_information():
         app.static_folder, 'shared_mobility', 'station_information.json')
     with open(station_information_path, encoding='utf-8') as json_file:
         json_data = json.load(json_file)
-        # Extract station information and match by post_code if one was provided, otherwise group data by post codes
-        matched_stations = json_data['data']['stations'][:10]
-        result = {}
-        if post_code:
-            result = {
-                str(post_code): matched_stations
-            }
-        else:
-            result = {
-                'test': matched_stations
-            }
+    # Extract station information and match by post_code if one was provided, otherwise group data by post codes
+    stations = pd.json_normalize(json_data["data"]["stations"])
+    valid_stations = stations.dropna(subset=['post_code'])
+    all_post_codes = valid_stations["post_code"]
+    matched_stations = []
+    result = {}
+    if post_code:
+        filtered_stations = valid_stations[valid_stations["post_code"] == str(
+            post_code)]
+        result = {
+            str(post_code): filtered_stations.to_json(orient="records")
+        }
+    else:
+        filtered_stations = valid_stations
+        for code in all_post_codes:
+            filtered_stations = valid_stations[valid_stations["post_code"] == str(
+                code)]
+            result[code] = filtered_stations.to_json(orient="records")
     print(result)
     return result
 
