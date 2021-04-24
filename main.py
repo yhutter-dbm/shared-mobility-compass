@@ -65,7 +65,6 @@ def station_information():
             filtered_stations = valid_stations[valid_stations["post_code"] == str(
                 code)]
             result[code] = filtered_stations.to_json(orient="records")
-    print(result)
     return result
 
 
