@@ -18,10 +18,11 @@ function _initMapBox() {
 }
 
 //Fuction Submit
-//TODO
+//TODO: Wenn Submit geklickt wird, schick plz und zoom stufe an flask
+//TODO2: Wenn Submit geklickt wird ganzes Formular mitschicken, damit liste anhand der Filter einstellungen erstellt werden kann
 
 //Function Get Liste for Markers
-//TODO
+//TODO rufe an endpoint liste mit standorten in der umgebung ab
 let markierungen = [['markierung1', '7.731537', '47.063618'], ['markierung2', '8.6016', '46.52419'], ['markierung3', '9.54551', '47.3842'], ['markierung4', '9.409512', '47.328598'], ['markierung5', '8.290168', '47.589222']];
 
 
@@ -35,6 +36,7 @@ function _setmarkers (markierungen) {
     markers.push(marker);
   };
 }
+//TODO: Marker hoverable machen, damit zusatz Infos angezegit werden
 
 //Fuction clear Markers
 function _clearmarkers (markers) {
