@@ -56,47 +56,26 @@ def shared_mobility_data():
     return render_template('shared-mobility-data.html')
 
 
-@app.route('/station_information', methods=['GET'])
-def station_information():
-    # TODO: Cache these results otherwise performance will not be ideal...
-    post_code = request.args.get('post_code')
-    stations = load_stations(True)
-    all_post_codes = stations["post_code"]
-    result = {}
-    if post_code:
-        filtered_stations = stations[stations["post_code"] == str(
-            post_code)]
-        result = {
-            str(post_code): filtered_stations.to_json(orient="records")
-        }
-    else:
-        filtered_stations = stations
-        for code in all_post_codes:
-            filtered_stations = stations[stations["post_code"] == str(
-                code)]
-            result[code] = filtered_stations.to_json(orient="records")
-    return result
-
-@app.route('/markers', methods=['GET'])
-def markers():
+@app.route('/stations_from_address', methods=['GET'])
+def stations_from_address():
     address = request.args.get('address')
     radius = int(request.args.get('radius'))
     valid_radius = radius != None and radius > 0
     location = geolocator.geocode(address)
 
     if location == None or not valid_radius:
-        # No valid location or radius was given...
-        return []
+        # No valid location or radius was given therefore no result can be determined.
+        return {'stations': []}
     else:
         # Check all locations and determine if they are within the given radius
         # Implemented with reference to: https://geopy.readthedocs.io/en/latest/#module-geopy.distance
-        result = {'markers': []}
+        result = {'stations': []}
         stations = load_stations()
 
         # Optimization for querying stations in range, implemented with reference to: https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6#:~:text=Vectorization%20is%20the%20process%20of,check%20out%20the%20Pandas%20docs)
         # Sadly a vectorization approach is not possible as the geodesic function does not seem to support arrays of tubles...
         stations_in_range = stations[stations.apply(lambda row: geodesic((row['lat'], row['lon']), (location.latitude, location.longitude)).km <= radius, axis=1)]
-        return {'markers': stations_in_range.to_json(orient="records")}
+        return {'stations': stations_in_range.to_json(orient="records")}
 
 
 if __name__ == "__main__":
