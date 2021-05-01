@@ -9,3 +9,9 @@ $("#stationInformationFromPostCodeButton").click(() => {
         $( "#stationInformationWithPostCodeRequestResponse" ).html(JSON.stringify(data));
     });
 });
+
+$("#markersFromAddressAndRadiusButton").click(() => {
+    $.get( "markers?address='8001'&radius=10", function( data ) {
+        $( "#markersFromAddressAndRadiusRequestResponse" ).html(JSON.stringify(data));
+    });
+});
