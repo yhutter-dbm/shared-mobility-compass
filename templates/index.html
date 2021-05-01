@@ -36,13 +36,14 @@
     <div class="uk-container-cover">
       <div class="filter-and-search-container uk-margin-small-top">
         <div id="searchContainer" class="uk-padding-small">
-          <button class="uk-button uk-button-default" id="searchButton">
-            <span uk-icon="icon: search"></span>
-          </button>
-          <form class="uk-search">
+          <form id="searchForm" class="uk-search">
+            <button class="uk-button uk-button-default" id="searchButton" type="submit">
+              <span uk-icon="icon: search"></span>
+            </button>
             <input
               class="uk-search-input"
               type="search"
+              id="searchValue"
               placeholder="8887 Mels"
             />
           </form>

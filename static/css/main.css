@@ -88,39 +88,24 @@ body {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  transition: width 0.2s linear;
   background-color: #999999;
   border-color: #999999;
   border-radius: 10px;
-  /* Initially this should have the same width and height as the button in order to create the illusion of growing to the right*/
-  width: var(--button-size);
+  width: var(--search-container-size);
   height: var(--button-size);
   color: black;
   margin-left: 10px;
   align-self: flex-start;
 }
 
-#searchContainer .uk-search {
-  /* Hide the search initially */
-  padding-right: 10px;
-  display: none;
-}
-
 #searchContainer .uk-search-input {
   background-color: #999999;
   color: black;
+  width: 70%;
 }
 
 #searchContainer .uk-search-input::placeholder {
   color: black;
-}
-
-#searchContainer.open {
-  width: var(--search-container-size);
-}
-
-#searchContainer.open .uk-search {
-  display: inherit;
 }
 
 #searchButton {

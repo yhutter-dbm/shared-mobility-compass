@@ -1,8 +1,5 @@
 let map = {};
-
-function _openSearch() {
-  searchContainer.toggleClass("open");
-}
+let markers = [];
 
 function _openFilter() {
   filterContainer.toggleClass("open");
@@ -19,46 +16,71 @@ function _initMapBox() {
   });
 }
 
-//Function Submit
-//TODO: Wenn Submit geklickt wird, schick plz und zoom stufe an flask
-//TODO2: Wenn Submit geklickt wird ganzes Formular mitschicken, damit liste anhand der Filter einstellungen erstellt werden kann
-
-//Function Get Liste for Markers
-//TODO rufe an endpoint liste mit standorten in der umgebung ab
-let markierungen = [['markierung1', '7.731537', '47.063618'], ['markierung2', '8.6016', '46.52419'], ['markierung3', '9.54551', '47.3842'], ['markierung4', '9.409512', '47.328598'], ['markierung5', '8.290168', '47.589222']];
-
-
-//Fuction Set Markers - SEJO
-function _setmarkers (markierungen) {
-  for (let i = 0; i < markierungen.length; i++) {
-    console.log(markierungen[i][0]);
-    var marker =  new mapboxgl.Marker({ color: 'red', rotation: 45 })
-        .setLngLat([markierungen[i][1], markierungen[i][2]])
-        .addTo(map);
-    markers.push(marker);
-  };
-}
-//TODO: Marker hoverable machen, damit zusatz Infos angezegit werden
-
-//Fuction clear Markers - SEJO
-function _clearmarkers (markers) {
-  for (let i = 0; i < markers.length; i++) {
-      markers[i].remove();
-  };
+function _clearMarkers (markers) {
+  markers.forEach(marker => {
+    // Remove from map.
+    marker.remove();
+  });
   markers = [];
 }
 
 
-// Get reference to button elements and register click handlers
-const searchButton = $("#searchButton");
-const searchContainer = $("#searchContainer");
-searchButton.click(() => _openSearch());
+function _createMarkersFromStations(stations) {
+  const markers = stations.map(station => {
+      const marker = new mapboxgl.Marker({ color: 'black', rotation: 45 }).setLngLat([station.lon, station.lat]);
+      return marker;
+  });
+  return markers;
+}
 
+
+function _handleSearch() {
+  // Get relevant information the user has entered
+  const address = $("#searchValue").val().trim();
+
+  if (!address) {
+    return;
+  }
+
+  // TODO: Find fancy formula to determine radius from zoom level.
+  const radius = 10;
+  $.get( `stations_from_address?address=${address}&radius=${radius}`, (response) =>  {
+    if (response.stations) {
+      // We need to convert the stringify json into actual data
+      response.stations = JSON.parse(response.stations);
+
+      // Clear all previous markers
+      _clearMarkers(markers);
+
+      // Create new markers depending on the response
+      markers = _createMarkersFromStations(response.stations);
+
+      // Add each one to the map
+      markers.forEach(marker => {
+        marker.addTo(map);
+      });
+
+    }
+    else {
+      // TODO: Probably have some logic in check to notify the user if nothing was found, e.g stations is empty.      
+    }
+  }).fail(function(error) {
+    alert( error);
+  });
+
+}
+
+// Get reference to button elements and register click handlers
 const filterButton = $("#filterButton");
 const filterContainer = $("#filterContainer");
 filterButton.click(() => _openFilter());
 
-_initMapBox();
+const searchForm = $("#searchForm");
+searchForm.submit((event) => {
+  // Prevent the default behaviour and handle the request ourselves.
+  event.preventDefault();
+  _handleSearch();
+})
 
-var markers = [];
-_setmarkers(markierungen);
+
+_initMapBox();

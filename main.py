@@ -4,6 +4,7 @@ from flask import request
 import logging
 from services.station_service import StationService
 
+
 # Setup application
 app = Flask("Shared Mobility Compass")
 
@@ -53,7 +54,6 @@ def stations_from_address():
         result = {'stations': []}
         stations_in_range = station_service.stations_from_location(address, radius)
         return {'stations': stations_in_range.to_json(orient="records")}
-
 
 if __name__ == "__main__":
     app.run(debug=debug, port=5000)

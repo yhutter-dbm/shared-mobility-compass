@@ -9,8 +9,10 @@ The web application uses the [Flask Library](https://flask.palletsprojects.com/e
 Then execute the following commands:
 * `pip install flask`
 * `pip install numpy`
-* `pip install --user pandas==1.0.3`
+* `pip install pandas`
 * `pip install geopy`
+
+**Note: Make sure that panda version is greater or equal to 1.0.3.**
 
 
 ## How to run
