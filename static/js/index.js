@@ -8,13 +8,25 @@ function _openFilter() {
   filterContainer.toggleClass("open");
 }
 
+
+
 function _initMapBox() {
+  let latitude = 47.3769;
+  let longitude = 8.5417;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        (position) =>  {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            map.flyTo({center: [longitude, latitude]});
+        });
+  }
   mapboxgl.accessToken =
     "pk.eyJ1IjoieWFubmlja2h1dHRlciIsImEiOiJja24wamRwa3QwZGQyMnVscm4zOGIxN2V0In0.978_7epIiz2f4Wd26ABpwg";
   map = new mapboxgl.Map({
     container: "mapContainer", // container ID
     style: "mapbox://styles/mapbox/dark-v10", // style URL
-    center: [8.5417, 47.3769], // starting position [lng, lat]
+    center: [longitude, latitude], // starting position [lng, lat]
     zoom: 12, // starting zoom
   });
 }
