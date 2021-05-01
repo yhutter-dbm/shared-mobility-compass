@@ -88,22 +88,15 @@ def markers():
         # No valid location or radius was given...
         return []
     else:
-        print(location.address)
         # Check all locations and determine if they are within the given radius
         # Implemented with reference to: https://geopy.readthedocs.io/en/latest/#module-geopy.distance
-        result = {'result': []}
+        result = {'markers': []}
         stations = load_stations()
 
-        for index, station in stations.iterrows():
-            # It takes (lat, lon)
-            lat = station.lat
-            lon = station.lon
-            station_position = (lat, lon)
-            location_position = (location.latitude, location.longitude)
-            distance = geodesic(location_position, station_position)
-            if distance.km <= radius:
-                result['result'].append(station.to_json())
-        return result
+        # Optimization for querying stations in range, implemented with reference to: https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6#:~:text=Vectorization%20is%20the%20process%20of,check%20out%20the%20Pandas%20docs)
+        # Sadly a vectorization approach is not possible as the geodesic function does not seem to support arrays of tubles...
+        stations_in_range = stations[stations.apply(lambda row: geodesic((row['lat'], row['lon']), (location.latitude, location.longitude)).km <= radius, axis=1)]
+        return {'markers': stations_in_range.to_json(orient="records")}
 
 
 if __name__ == "__main__":
