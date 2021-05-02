@@ -55,7 +55,7 @@ function _handleSearch() {
   }
 
   // TODO: Find fancy formula to determine radius from zoom level.
-  const radius = 10;
+  const radius = 2;
   $.get( `stations_from_address?address=${address}&radius=${radius}`, (response) =>  {
     if (response.stations) {
       // We need to convert the stringify json into actual data
