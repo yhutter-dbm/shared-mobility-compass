@@ -1,95 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <title>Shared Mobility Compass - Map View</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/normalize/css/normalize.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/uikit/css/uikit.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/mapbox-gl/css/mapbox-gl.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
-  </head>
+</head>
 
-  <body>
+<body>
     <nav class="uk-navbar-container" uk-navbar>
-      <div class="uk-navbar-left">
-        <a class="uk-navbar-item uk-logo" href="#">SMC</a>
-      </div>
-
-      <div class="uk-navbar-center">
-        <ul class="uk-navbar-nav">
-          <li class="uk-active"><a href="#">Map /</a></li>
-          <li><a href="{{ url_for('data') }}">Data /</a></li>
-          <li><a href="{{ url_for('route') }}">Route /</a></li>
-          <li><a href="{{ url_for('shared_mobility_data') }}">Shared Mobility Data</a></li>
-        </ul>
-      </div>
-
-      <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-          <a class="uk-navbar-item uk-logo" href="#"
-            ><span uk-icon="icon: location"></span
-          ></a>
-        </ul>
-      </div>
+        <div class="uk-navbar-left">
+            <a class="uk-navbar-item uk-logo" href="#">SMC</a>
+        </div>
+        <div class="uk-navbar-center">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><a href="#">Map /</a></li>
+                <li><a href="{{ url_for('data') }}">Data /</a></li>
+                <li><a href="{{ url_for('route') }}">Route /</a></li>
+                <li><a href="{{ url_for('shared_mobility_data') }}">Shared Mobility Data</a></li>
+            </ul>
+        </div>
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <a class="uk-navbar-item uk-logo" href="#"><span uk-icon="icon: location"></span></a>
+            </ul>
+        </div>
     </nav>
-
-    <div class="uk-container-cover">
-      <div class="filter-and-search-container uk-margin-small-top">
-        <div id="searchContainer" class="uk-padding-small">
-          <form id="searchForm" class="uk-search">
-            <button class="uk-button uk-button-default" id="searchButton" type="submit">
-              <span uk-icon="icon: search"></span>
-            </button>
-            <input
-              class="uk-search-input"
-              type="search"
-              id="searchValue"
-              placeholder="8887 Mels"
-            />
-          </form>
+    <div class="uk-container-expanded map-and-filter-area">
+        <div class="filter-area uk-padding-small">
+            <form id="filterForm">
+                <span uk-icon="icon: search"></span>
+                <input class="uk-search-input" type="search" id="searchValue" placeholder="Enter an address or location..." />
+                <div class="uk-margin-large-top">
+                    <span class="uk-badge">Bike</span>
+                    <span class="uk-badge">Car</span>
+                    <span class="uk-badge">Scooter</span>
+                </div>
+                <div class="uk-margin-large-top">
+                    <p>Price in CHF per Hour</p>
+                    <input class="uk-range" type="range" value="2" min="5" max="1000" step="0.5" />
+                </div>
+            </form>
         </div>
-
-        <div id="filterContainer" class="uk-padding-small">
-          <div class="filter-header">
-            <b>Filter</b>
-            <button class="uk-button uk-button-default" id="filterButton">
-              <span uk-icon="icon: table"></span>
-            </button>
-          </div>
-
-          <form class="uk-form-blank">
-            <fieldset class="uk-fieldset uk-form-horizontal">
-              <p>Vehicle</p>
-              <span class="uk-badge">Bike</span>
-              <span class="uk-badge">Car</span>
-              <span class="uk-badge">Scooter</span>
-
-              <p>Price</p>
-              <input
-                class="uk-range"
-                type="range"
-                value="2"
-                min="0"
-                max="10"
-                step="0.1"
-              />
-
-              <p>Distributor</p>
-              <select class="uk-select">
-                <option>Distributor 1</option>
-                <option>Distributor 2</option>
-              </select>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-      <div id="mapContainer"></div>
+        <div id="mapContainer"></div>
     </div>
-
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/jquery/js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/uikit/js/uikit-icons.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='vendor/mapbox-gl/js/mapbox-gl.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/index.js')}}"></script>
-  </body>
+</body>
+
 </html>

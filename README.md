@@ -8,7 +8,6 @@ The web application uses the [Flask Library](https://flask.palletsprojects.com/e
 
 Then execute the following commands:
 * `pip install flask`
-* `pip install numpy`
 * `pip install pandas`
 * `pip install geopy`
 

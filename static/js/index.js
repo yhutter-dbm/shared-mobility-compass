@@ -1,12 +1,6 @@
 let map = {};
 let markers = [];
 
-function _openFilter() {
-  filterContainer.toggleClass("open");
-}
-
-
-
 function _initMapBox() {
   let latitude = 47.3769;
   let longitude = 8.5417;
@@ -82,13 +76,9 @@ function _handleSearch() {
 
 }
 
-// Get reference to button elements and register click handlers
-const filterButton = $("#filterButton");
-const filterContainer = $("#filterContainer");
-filterButton.click(() => _openFilter());
-
-const searchForm = $("#searchForm");
-searchForm.submit((event) => {
+// Get reference to elements and register click handlers
+const filterForm = $("#filterForm");
+filterForm.submit((event) => {
   // Prevent the default behaviour and handle the request ourselves.
   event.preventDefault();
   _handleSearch();

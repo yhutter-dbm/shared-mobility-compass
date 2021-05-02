@@ -1,36 +1,32 @@
 @font-face {
-  font-family: PlainBold;
-  src: url("../fonts/Plain-Bold.otf") format("opentype");
+    font-family: PlainBold;
+    src: url("../fonts/Plain-Bold.otf") format("opentype");
 }
 
 @font-face {
-  font-family: PlainRegular;
-  src: url("../fonts/Plain-Regular.otf") format("opentype");
+    font-family: PlainRegular;
+    src: url("../fonts/Plain-Regular.otf") format("opentype");
 }
 
 :root {
-  --navbar-height: 80px;
-  --button-size: 50px;
-  --search-container-size: 250px;
-  --filter-container-height: 400px;
-  --filter-container-width: 350px;
+    --navbar-height: 80px;
 }
 
 .uk-navbar-container {
-  background: white !important;
+    background: white !important;
 }
 
 .uk-logo {
-  font-family: "PlainBold", monospace;
-  color: black;
+    font-family: "PlainBold", monospace;
+    color: black;
 }
 
 .uk-navbar-nav li.uk-active a {
-  color: black;
+    color: black;
 }
 
 .uk-navbar-nav li a {
-  font-family: "PlainRegular", monospace;
+    font-family: "PlainRegular", monospace;
 }
 
 h1,
@@ -40,165 +36,70 @@ h4,
 h5,
 h6,
 body {
-  font-family: "PlainRegular", monospace;
+    font-family: "PlainRegular", monospace;
 }
 
 .white {
-  color: white;
+    color: white;
 }
 
 .background-black {
-  background: black;
+    background: black;
 }
 
 .center {
-  margin-left: auto !important;
-  margin-right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 #mapContainer {
-  height: calc(100vh - var(--navbar-height));
-  border: none;
+    border: none;
+    width: 100%;
 }
 
-.filter-and-search-container {
-  position: fixed;
-  top: calc(var(--navbar-height) + 10px);
-  width: 100%;
-  z-index: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.map-and-filter-area {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
 }
 
-@media only screen and (max-width: 768px) {
-  .filter-and-search-container {
-    flex-direction: column;
-    justify-content: center;
-  }
 
-  #searchContainer {
-    margin: 20px auto !important;
-  }
+.filter-area {
+    background-color: #999999;
+    color: black;
+    width: 15%;
+    height: 100%;
 }
 
-#searchContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #999999;
-  border-color: #999999;
-  border-radius: 10px;
-  width: var(--search-container-size);
-  height: var(--button-size);
-  color: black;
-  margin-left: 10px;
-  align-self: flex-start;
+#filterForm {
+    width: 100%;
+    height: 100%;
 }
 
-#searchContainer .uk-search-input {
-  background-color: #999999;
-  color: black;
-  width: 70%;
+#filterForm .uk-search-input {
+    background-color: #999999;
+    color: black;
+    width: 80%;
 }
 
-#searchContainer .uk-search-input::placeholder {
-  color: black;
+#filterForm .uk-search-input::placeholder {
+    color: black;
 }
 
-#searchButton {
-  align-self: flex-start;
-  background-color: #999999;
-  border-color: #999999;
-  border-radius: 10px;
-  padding: 0;
-  margin: 0;
-  width: var(--button-size);
-  height: var(--button-size);
+#filterForm p {
 }
 
-#searchButton .uk-icon svg {
-  width: 100%;
-  height: 100%;
+#filterForm .uk-range {
 }
 
-#filterContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #999999;
-  border-color: #999999;
-  color: black;
-  border-radius: 10px;
-  height: var(--button-size);
-  width: var(--filter-container-width);
-  transition: height 0.2s linear;
-  margin-right: 10px;
+#filterForm .uk-badge {
+    background-color: #333333;
 }
 
-.filter-header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-}
-
-#filterContainer form {
-  display: none;
-  width: 100%;
-  height: 100%;
-}
-
-#filterContainer form .uk-fieldset {
-  width: 100%;
-}
-
-#filterContainer form p {
-  font-size: 0.8em;
-}
-
-#filterContainer form .uk-range {
-  font-size: 0.8em;
-}
-
-#filterContainer form .uk-badge {
-  background-color: #333333;
-}
-
-#filterContainer form .uk-select {
-  background-color: #999999;
-  border: 1px solid black;
-  color: black;
-  font-size: 0.8em;
-}
-
-#filterContainer.open form {
-  display: inherit;
-}
-
-#filterContainer.open {
-  height: var(--filter-container-height);
-}
-
-#filterContainer.open form {
-  display: inherit;
-}
-
-#filterButton {
-  background-color: #999999;
-  border-color: #999999;
-  border-radius: 10px;
-  width: var(--button-size);
-  height: var(--button-size);
-  padding: 0;
-  margin: 0;
-}
-
-#filterButton .uk-icon svg {
-  width: 100%;
-  height: 100%;
+#filterForm .uk-select {
+    background-color: #999999;
+    border: 1px solid black;
+    color: black;
+    font-size: 0.8em;
 }
