@@ -82,7 +82,21 @@ filterForm.submit((event) => {
   // Prevent the default behaviour and handle the request ourselves.
   event.preventDefault();
   _handleSearch();
-})
+});
+
+const priceSlider = $("#priceSlider");
+const priceValue = $("#priceValue");
+
+// Initially set the value for the price to be that of the slider
+const initialPriceSliderValue = priceSlider.val();
+priceValue.html(initialPriceSliderValue);
+
+// Update the price text according to the slider
+priceSlider.on('change', function() {
+  let val = $(this).val();
+  priceValue.html(val);
+});
+
 
 
 _initMapBox();

@@ -88,12 +88,6 @@ body {
     color: black;
 }
 
-#filterForm p {
-}
-
-#filterForm .uk-range {
-}
-
 #filterForm .uk-badge {
     background-color: #333333;
 }
@@ -103,4 +97,11 @@ body {
     border: 1px solid black;
     color: black;
     font-size: 0.8em;
+}
+
+#priceValue {
+  display: block;
+  widows: 100%;
+  text-align: center;
+  font-weight: bold;
 }
