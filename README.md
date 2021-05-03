@@ -15,4 +15,25 @@ Then execute the following commands:
 
 
 ## How to run
-Simply run the following command `python main.py`
+First we need to tell flask the directory which it should run as well as the environment this is done via the following commands:
+
+
+**Mac and Linux**
+```bash
+export FLASK_APP=shared-mobility-compass
+export FLASK_ENV=development
+```
+
+**Windows**
+```bash
+set FLASK_APP=shared-mobility-compass
+set FLASK_ENV=development
+```
+
+After setting those environment variables flask can be simply started with
+
+```bash
+flask run
+```
+
+**Note that you do need to run this command outside the shared-mobility-compass (one level above it)**
