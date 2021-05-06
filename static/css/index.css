@@ -97,8 +97,6 @@ body {
     color: black;
 }
 
-
-
 .uk-select {
     background-color: #999999;
     border: 1px solid black;
@@ -106,9 +104,24 @@ body {
     font-size: 0.8em;
 }
 
+.uk-notification-message {
+    background-color: #999999;
+    color: black;
+}
+
+.uk-notification-close.uk-icon.uk-close {
+    color: black;
+    display: block;
+}
+
+.uk-notification-close.uk-icon.uk-close:hover {
+    color: black;
+}
+
+
 #priceValue {
-  display: block;
-  widows: 100%;
-  text-align: center;
-  font-weight: bold;
+    display: block;
+    widows: 100%;
+    text-align: center;
+    font-weight: bold;
 }

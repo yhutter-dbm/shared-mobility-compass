@@ -69,10 +69,10 @@ function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
     }
     
     else {
-      // TODO: Probably have some logic in check to notify the user if nothing was found, e.g stations is empty.      
+      _sendNotification("No results were found...");   
     }
   }).fail(function(error) {
-    alert( error);
+      _sendNotification("An error occurred...");  
   });
 }
 
@@ -118,6 +118,11 @@ function _handleFilters() {
   const radius = 2;
   _doStationsRequest(address, radius, vehicleTypes, price);
 }
+
+function _sendNotification(message) {
+  UIkit.notification(message, {pos: 'bottom-center'});
+}
+
 
 // Register event handlers
 searchField.on('keyup', (event) =>  {
