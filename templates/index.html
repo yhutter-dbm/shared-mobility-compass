@@ -31,20 +31,23 @@
     </nav>
     <div class="uk-container-expanded map-and-filter-area">
         <div class="filter-area uk-padding-small">
-            <form id="filterForm">
                 <span uk-icon="icon: search"></span>
-                <input class="uk-search-input" type="search" id="searchValue" placeholder="Enter an address or location..." />
+                <input class="uk-search-input" type="search" id="searchField" placeholder="Enter an address or location..." />
                 <div class="uk-margin-large-top">
                     <span class="uk-badge">Bike</span>
+                    <span class="uk-badge">E-Bike</span>
+                    <span class="uk-badge">E-CargoBike</span>
+                    <span class="uk-badge">E-Scooter</span>
+                    <span class="uk-badge">E-Car</span>
                     <span class="uk-badge">Car</span>
-                    <span class="uk-badge">Scooter</span>
                 </div>
                 <div class="uk-margin-large-top">
                     <p>Maximum Price in CHF per Hour</p>
                     <input class="uk-range" type="range" value="5" min="1" max="20" step="0.5" id="priceSlider" />
                     <p class="" id="priceValue"></p>
                 </div>
-            </form>
+
+                <button class="uk-button uk-button-secondary" id="applyFilterButton">Apply Filter</button>
         </div>
         <div id="mapContainer"></div>
     </div>

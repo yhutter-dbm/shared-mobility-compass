@@ -1,5 +1,11 @@
 let map = {};
 let markers = [];
+const priceSlider = $("#priceSlider");
+const priceValue = $("#priceValue");
+const searchField = $("#searchField");
+const applyFilterButton = $("#applyFilterButton");
+const vehicleTypeBadges = $(".uk-badge");
+
 
 function _initMapBox() {
   let latitude = 47.3769;
@@ -39,19 +45,9 @@ function _createMarkersFromStations(stations) {
   return markers;
 }
 
-
-function _handleSearch() {
-  // Get relevant information the user has entered
-  const address = $("#searchValue").val().trim();
-
-  if (!address) {
-    return;
-  }
-
-  // TODO: Find fancy formula to determine radius from zoom level.
-  const radius = 2;
-  $.get( `stations_from_address?address=${address}&radius=${radius}`, (response) =>  {
-    if (response.stations) {
+function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
+  $.post('stations', { 'address': address, 'radius': radius, vehicleTypes: JSON.stringify(vehicleTypes), price: price }, (response) =>  {
+    if (response.stations && response.stations.length > 0) {
       // We need to convert the stringify json into actual data
       response.stations = JSON.parse(response.stations);
 
@@ -73,19 +69,58 @@ function _handleSearch() {
   }).fail(function(error) {
     alert( error);
   });
+}
+
+
+function _handleSearch() {
+  // Get relevant information the user has entered
+  const address = searchField.val().trim();
+
+  if (!address) {
+    return;
+  }
+
+  _clearFilters();
+
+  // TODO: Find fancy formula to determine radius from zoom level.
+  const radius = 2;
+  _doStationsRequest(address, radius);
+}
+
+function _clearFilters() {
+  // Unselect all badges...
+  vehicleTypeBadges.removeClass('selected')
+
+  // Rest price range slider to default
+  priceSlider.val(5);
+  priceSlider.change();
 
 }
 
-// Get reference to elements and register click handlers
-const filterForm = $("#filterForm");
-filterForm.submit((event) => {
-  // Prevent the default behaviour and handle the request ourselves.
-  event.preventDefault();
-  _handleSearch();
-});
+function _handleFilters() {
+  const selectedVehicleTypeBadges = $(".uk-badge.selected")
 
-const priceSlider = $("#priceSlider");
-const priceValue = $("#priceValue");
+  // Create a list containing the HTML Text of each selected badge
+  const vehicleTypes = $.isEmptyObject(selectedVehicleTypeBadges) ? [] : selectedVehicleTypeBadges.toArray().map((v) => v.innerHTML);
+  const address = searchField.val().trim();
+  const price = priceSlider.val();
+
+  if (!address) {
+    return;
+  }
+
+  // TODO: Find fancy formula to determine radius from zoom level.
+  const radius = 2;
+  _doStationsRequest(address, radius, vehicleTypes, price);
+}
+
+// Register event handlers
+searchField.on('keyup', (event) =>  {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+      event.preventDefault();
+      _handleSearch();  
+    }
+});
 
 // Initially set the value for the price to be that of the slider
 const initialPriceSliderValue = priceSlider.val();
@@ -97,6 +132,17 @@ priceSlider.on('change', function() {
   priceValue.html(val);
 });
 
+// Handle filtering
+applyFilterButton.click((event) => {
+  // Prevent the default behaviour and handle the request ourselves.
+  event.preventDefault();
+  _handleFilters();
+});
 
+
+// Apply selected class on badges when they are clicked...
+vehicleTypeBadges.click((event) => {
+  $(event.target).toggleClass("selected")
+});
 
 _initMapBox();

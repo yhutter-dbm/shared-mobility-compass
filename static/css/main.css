@@ -73,26 +73,33 @@ body {
     height: 100%;
 }
 
-#filterForm {
-    width: 100%;
-    height: 100%;
-}
 
-#filterForm .uk-search-input {
+#searchField.uk-search-input {
     background-color: #999999;
     color: black;
     width: 80%;
 }
 
-#filterForm .uk-search-input::placeholder {
+#searchField.uk-search-input::placeholder {
     color: black;
 }
 
-#filterForm .uk-badge {
+.uk-badge {
     background-color: #333333;
 }
 
-#filterForm .uk-select {
+.uk-badge:hover {
+    cursor: pointer;
+}
+
+.uk-badge.selected {
+    background-color: white;
+    color: black;
+}
+
+
+
+.uk-select {
     background-color: #999999;
     border: 1px solid black;
     color: black;
