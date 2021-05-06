@@ -62,6 +62,12 @@ function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
       });
 
     }
+
+    // Move to new location if we get a valid result back
+    if (!!response.longitude && !!response.latitude) {
+      map.flyTo({center: [response.longitude, response.latitude]});
+    }
+    
     else {
       // TODO: Probably have some logic in check to notify the user if nothing was found, e.g stations is empty.      
     }

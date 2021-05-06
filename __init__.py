@@ -40,15 +40,13 @@ def create_app():
         radius = int(request.form.get('radius'))
         vehicle_types = request.form.getlist('vehicleTypes[]')
         price = request.form.get('price')
-        valid_radius = radius != None and radius > 0
-        empty_response = {'stations': []}
-        if not valid_radius:
-            # No valid radius was given therefore no result can be determined.
-            return empty_response
-        else:
-            stations_in_range = station_service.query_stations(address, radius, vehicle_types, price)
-            if stations_in_range.empty:
-                return empty_response
-            return {'stations': stations_in_range.to_json(orient="records")}
-
+        location, stations = station_service.query_stations(address, radius, vehicle_types, price)
+        longitude = None
+        latitude = None
+        if location != None:
+            longitude = location.longitude
+            latitude = location.latitude
+        if stations.empty:
+            return {'stations': [], 'longitude': longitude, 'latitude': latitude }
+        return {'stations': stations.to_json(orient="records"), 'longitude': longitude, 'latitude': latitude }
     return app
