@@ -1,0 +1,114 @@
+@font-face {
+    font-family: PlainBold;
+    src: url("../fonts/Plain-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: PlainRegular;
+    src: url("../fonts/Plain-Regular.otf") format("opentype");
+}
+
+:root {
+    --navbar-height: 80px;
+}
+
+.uk-navbar-container {
+    background: white !important;
+}
+
+.uk-logo {
+    font-family: "PlainBold", monospace;
+    color: black;
+}
+
+.uk-navbar-nav li.uk-active a {
+    color: black;
+}
+
+.uk-navbar-nav li a {
+    font-family: "PlainRegular", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+body {
+    font-family: "PlainRegular", monospace;
+}
+
+.white {
+    color: white;
+}
+
+.background-black {
+    background: black;
+}
+
+.center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#mapContainer {
+    border: none;
+    width: 100%;
+}
+
+.map-and-filter-area {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    overflow-y: hidden;
+}
+
+
+.filter-area {
+    background-color: #999999;
+    color: black;
+    width: 15%;
+    height: 100%;
+}
+
+
+#searchField.uk-search-input {
+    background-color: #999999;
+    color: black;
+    width: 80%;
+}
+
+#searchField.uk-search-input::placeholder {
+    color: black;
+}
+
+.uk-badge {
+    background-color: #333333;
+}
+
+.uk-badge:hover {
+    cursor: pointer;
+}
+
+.uk-badge.selected {
+    background-color: white;
+    color: black;
+}
+
+
+
+.uk-select {
+    background-color: #999999;
+    border: 1px solid black;
+    color: black;
+    font-size: 0.8em;
+}
+
+#priceValue {
+  display: block;
+  widows: 100%;
+  text-align: center;
+  font-weight: bold;
+}
