@@ -38,7 +38,7 @@ def create_app():
     def stations():
         address = request.form.get('address')
         radius = int(request.form.get('radius'))
-        vehicle_types = request.form.get('vehicleTypes')
+        vehicle_types = request.form.getlist('vehicleTypes[]')
         price = request.form.get('price')
         valid_radius = radius != None and radius > 0
         empty_response = {'stations': []}

@@ -46,13 +46,12 @@ function _createMarkersFromStations(stations) {
 }
 
 function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
-  $.post('stations', { 'address': address, 'radius': radius, vehicleTypes: JSON.stringify(vehicleTypes), price: price }, (response) =>  {
+  $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes, price: price }, (response) =>  {
+    // Clear all previous markers
+    _clearMarkers(markers);
     if (response.stations && response.stations.length > 0) {
       // We need to convert the stringify json into actual data
       response.stations = JSON.parse(response.stations);
-
-      // Clear all previous markers
-      _clearMarkers(markers);
 
       // Create new markers depending on the response
       markers = _createMarkersFromStations(response.stations);
