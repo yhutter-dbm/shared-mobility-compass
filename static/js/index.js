@@ -44,7 +44,7 @@ function _createMarkersFromStations(stations) {
 }
 
 function _doStationsRequest(address, radius, vehicleTypes = []) {
-    $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes}, (response) => {
+    $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes }, (response) => {
         // Clear all previous markers
         _clearMarkers(markers);
         if (response.stations && response.stations.length > 0) {
@@ -72,6 +72,11 @@ function _doStationsRequest(address, radius, vehicleTypes = []) {
     });
 }
 
+function _getRadius() {
+    // Zoom Level and corresponding meters/pixel: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance
+    return Math.floor(66 / map.getZoom());
+}
+
 
 function _handleSearch() {
     // Get relevant information the user has entered
@@ -84,15 +89,7 @@ function _handleSearch() {
 
     _clearFilters();
 
-    // TODO: Find fancy formula to determine radius from zoom level.
-    // Zoom Level und dazugehörige Meter/Pixel: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance
-    const zoomLevel = map.getZoom();
-    //console.log(zoomLevel);
-    const radius = Math.floor(66 / map.getZoom());
-    //console.log(radius);
-
-    //const radius = 2;
-
+    const radius = _getRadius();
     _doStationsRequest(address, radius);
 }
 
@@ -113,8 +110,7 @@ function _handleFilters() {
         return;
     }
 
-    // TODO: Find fancy formula to determine radius from zoom level.
-    const radius = 2;
+    const radius = _getRadius();
     _doStationsRequest(address, radius, vehicleTypes);
 }
 
