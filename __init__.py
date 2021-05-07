@@ -35,18 +35,19 @@ def create_app():
         return render_template('shared-mobility-data.html')
 
 
-    @app.route('/stations_from_address', methods=['GET'])
-    def stations_from_address():
-        address = request.args.get('address')
-        radius = int(request.args.get('radius'))
-        valid_radius = radius != None and radius > 0
-
-        if not valid_radius:
-            # No valid radius was given therefore no result can be determined.
-            return {'stations': []}
-        else:
-            result = {'stations': []}
-            stations_in_range = station_service.stations_from_location(address, radius)
-            return {'stations': stations_in_range.to_json(orient="records")}
-
+    @app.route('/stations', methods=['POST'])
+    def stations():
+        address = request.form.get('address')
+        radius = int(request.form.get('radius'))
+        vehicle_types = request.form.getlist('vehicleTypes[]')
+        price = request.form.get('price')
+        location, stations = station_service.query_stations(address, radius, vehicle_types, price)
+        longitude = None
+        latitude = None
+        if location != None:
+            longitude = location.longitude
+            latitude = location.latitude
+        if stations.empty:
+            return {'stations': [], 'longitude': longitude, 'latitude': latitude }
+        return {'stations': stations.to_json(orient="records"), 'longitude': longitude, 'latitude': latitude }
     return app
