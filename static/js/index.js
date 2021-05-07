@@ -85,7 +85,14 @@ function _handleSearch() {
     _clearFilters();
 
     // TODO: Find fancy formula to determine radius from zoom level.
-    const radius = 2;
+    // Zoom Level und dazugehörige Meter/Pixel: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance
+    const zoomLevel = map.getZoom();
+    //console.log(zoomLevel);
+    const radius = Math.floor(66 / map.getZoom());
+    //console.log(radius);
+
+    //const radius = 2;
+
     _doStationsRequest(address, radius);
 }
 
