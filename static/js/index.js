@@ -48,8 +48,17 @@ function _handleSearch() {
     return;
   }
 
-  // TODO: Find fancy formula to determine radius from zoom level.
-  const radius = 2;
+  // Zoom Level und dazugehörige Meter/Pixel: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance
+  const zoomLevel = map.getZoom();
+  console.log(zoomLevel);
+
+  let radius = 2;
+  if ( zoomLevel <= 10 ) { radius = 10 } else
+  if ( zoomLevel > 10 &&  zoomLevel <= 15 ) { radius = 5 } else
+  if ( zoomLevel > 15 ) { radius = 2 };
+
+  console.log("Radius ist jetzt " + radius);
+ 
   $.get( `stations_from_address?address=${address}&radius=${radius}`, (response) =>  {
     if (response.stations) {
       // We need to convert the stringify json into actual data
