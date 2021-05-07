@@ -37,7 +37,10 @@ function _clearMarkers(markers) {
 
 function _createMarkersFromStations(stations) {
     const markers = stations.map(station => {
-        const marker = new mapboxgl.Marker({ color: 'black', rotation: 45 }).setLngLat([station.lon, station.lat]);
+        const marker = new mapboxgl
+          .Marker({ color: 'black', rotation: 45 })
+          .setLngLat([station.lon, station.lat])
+          .setPopup(new mapboxgl.Popup().setHTML("<p>Hello World</p>"));
         return marker;
     });
     return markers;
