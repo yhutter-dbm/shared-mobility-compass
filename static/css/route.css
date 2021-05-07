@@ -1,4 +1,0 @@
-#routeContainer {
-  height: calc(100vh - var(--navbar-height));
-  background: #333333;
-}

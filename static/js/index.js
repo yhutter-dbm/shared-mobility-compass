@@ -1,7 +1,5 @@
 let map = {};
 let markers = [];
-const priceSlider = $("#priceSlider");
-const priceValue = $("#priceValue");
 const searchField = $("#searchField");
 const applyFilterButton = $("#applyFilterButton");
 const vehicleTypeBadges = $(".uk-badge");
@@ -45,8 +43,8 @@ function _createMarkersFromStations(stations) {
     return markers;
 }
 
-function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
-    $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes, price: price }, (response) => {
+function _doStationsRequest(address, radius, vehicleTypes = []) {
+    $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes}, (response) => {
         // Clear all previous markers
         _clearMarkers(markers);
         if (response.stations && response.stations.length > 0) {
@@ -94,11 +92,6 @@ function _handleSearch() {
 function _clearFilters() {
     // Unselect all badges...
     vehicleTypeBadges.removeClass('selected')
-
-    // Rest price range slider to default
-    priceSlider.val(5);
-    priceSlider.change();
-
 }
 
 function _handleFilters() {
@@ -107,7 +100,6 @@ function _handleFilters() {
     // Create a list containing the HTML Text of each selected badge
     const vehicleTypes = $.isEmptyObject(selectedVehicleTypeBadges) ? [] : selectedVehicleTypeBadges.toArray().map((v) => v.innerHTML);
     const address = searchField.val().trim();
-    const price = priceSlider.val();
 
     if (!address) {
         _sendNotification("No address was entered");
@@ -116,7 +108,7 @@ function _handleFilters() {
 
     // TODO: Find fancy formula to determine radius from zoom level.
     const radius = 2;
-    _doStationsRequest(address, radius, vehicleTypes, price);
+    _doStationsRequest(address, radius, vehicleTypes);
 }
 
 function _sendNotification(message) {
@@ -130,16 +122,6 @@ searchField.on('keyup', (event) => {
         event.preventDefault();
         _handleSearch();
     }
-});
-
-// Initially set the value for the price to be that of the slider
-const initialPriceSliderValue = priceSlider.val();
-priceValue.html(initialPriceSliderValue);
-
-// Update the price text according to the slider
-priceSlider.on('change', function() {
-    let val = $(this).val();
-    priceValue.html(val);
 });
 
 // Handle filtering
