@@ -52,7 +52,7 @@ class StationService:
 		km = 6367 * c
 		return km
 
-	def query_stations(self, address, radius, vehicle_types = [], price = None):
+	def query_stations(self, address, radius, vehicle_types = []):
 		location = self.geolocator.geocode(address)
 		empty_result = pd.DataFrame({'A' : []})
 		if location == None:

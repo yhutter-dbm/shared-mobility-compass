@@ -118,10 +118,7 @@ body {
     color: black;
 }
 
-
-#priceValue {
-    display: block;
-    widows: 100%;
-    text-align: center;
-    font-weight: bold;
+#applyFilterButton {
+    position: absolute;
+    bottom: 10px;
 }
