@@ -1,7 +1,5 @@
 let map = {};
 let markers = [];
-const priceSlider = $("#priceSlider");
-const priceValue = $("#priceValue");
 const searchField = $("#searchField");
 const applyFilterButton = $("#applyFilterButton");
 const vehicleTypeBadges = $(".uk-badge");
@@ -48,7 +46,6 @@ function _createMarkersFromStations(stations) {
             "<b>Provider: </b> <p>" + station.name_provider + "</p> </br>" +
             "<b>Typ: </b> <p>" + station.vehicle_type + "</p>"
             ));
-        console.log(station);
         return marker;
     });
     return markers;
@@ -83,6 +80,10 @@ function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
     });
 }
 
+function _calculateRadius() {
+    return Math.floor(66 / map.getZoom());;
+}
+
 
 function _handleSearch() {
     // Get relevant information the user has entered
@@ -95,26 +96,13 @@ function _handleSearch() {
 
     _clearFilters();
 
-    // TODO: Find fancy formula to determine radius from zoom level.
-    // Zoom Level und dazugehörige Meter/Pixel: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance
-    const zoomLevel = map.getZoom();
-    //console.log(zoomLevel);
-    const radius = Math.floor(66 / map.getZoom());
-    //console.log(radius);
-
-    //const radius = 2;
-
+    const radius = _calculateRadius();
     _doStationsRequest(address, radius);
 }
 
 function _clearFilters() {
     // Unselect all badges...
     vehicleTypeBadges.removeClass('selected')
-
-    // Rest price range slider to default
-    priceSlider.val(5);
-    priceSlider.change();
-
 }
 
 function _handleFilters() {
@@ -123,16 +111,14 @@ function _handleFilters() {
     // Create a list containing the HTML Text of each selected badge
     const vehicleTypes = $.isEmptyObject(selectedVehicleTypeBadges) ? [] : selectedVehicleTypeBadges.toArray().map((v) => v.innerHTML);
     const address = searchField.val().trim();
-    const price = priceSlider.val();
 
     if (!address) {
         _sendNotification("No address was entered");
         return;
     }
 
-    // TODO: Find fancy formula to determine radius from zoom level.
-    const radius = 2;
-    _doStationsRequest(address, radius, vehicleTypes, price);
+    const radius = _calculateRadius();
+    _doStationsRequest(address, radius, vehicleTypes);
 }
 
 function _sendNotification(message) {
@@ -146,16 +132,6 @@ searchField.on('keyup', (event) => {
         event.preventDefault();
         _handleSearch();
     }
-});
-
-// Initially set the value for the price to be that of the slider
-const initialPriceSliderValue = priceSlider.val();
-priceValue.html(initialPriceSliderValue);
-
-// Update the price text according to the slider
-priceSlider.on('change', function() {
-    let val = $(this).val();
-    priceValue.html(val);
 });
 
 // Handle filtering
