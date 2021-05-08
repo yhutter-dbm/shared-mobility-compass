@@ -54,8 +54,8 @@ function _createMarkersFromStations(stations) {
     return markers;
 }
 
-function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
-    $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes, price: price }, (response) => {
+function _doStationsRequest(address, radius, flyTo, vehicleTypes = [], ) {
+    $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes }, (response) => {
         // Clear all previous markers
         _clearMarkers(markers);
         if (response.stations && response.stations.length > 0) {
@@ -70,13 +70,13 @@ function _doStationsRequest(address, radius, vehicleTypes = [], price = null) {
                 marker.addTo(map);
             });
 
+        } else {
+            _sendNotification("No results were found...");
         }
 
         // Move to new location if we get a valid result back
-        if (!!response.longitude && !!response.latitude) {
+        if (!!response.longitude && !!response.latitude && flyTo) {
             map.flyTo({ center: [response.longitude, response.latitude] });
-        } else {
-            _sendNotification("No results were found...");
         }
     }).fail(function(error) {
         _sendNotification("An error occurred...");
@@ -100,7 +100,7 @@ function _handleSearch() {
     _clearFilters();
 
     const radius = _calculateRadius();
-    _doStationsRequest(address, radius);
+    _doStationsRequest(address, radius, true);
 }
 
 function _clearFilters() {
@@ -121,7 +121,7 @@ function _handleFilters() {
     }
 
     const radius = _calculateRadius();
-    _doStationsRequest(address, radius, vehicleTypes);
+    _doStationsRequest(address, radius, false, vehicleTypes);
 }
 
 function _sendNotification(message) {
