@@ -38,13 +38,16 @@ function _clearMarkers(markers) {
 function _createMarkersFromStations(stations) {
     const markers = stations.map(station => {
         const marker = new mapboxgl
-          .Marker({ color: 'black', rotation: 45 })
-          .setLngLat([station.lon, station.lat])
-          .setPopup(new mapboxgl.Popup().setHTML(
-            "<b>Station Name</b> </br>" + 
-            "<p>" + station.name_station + "</p> </br>" +
-            "<b>Provider: </b> <p>" + station.name_provider + "</p> </br>" +
-            "<b>Typ: </b> <p>" + station.vehicle_type + "</p>"
+            .Marker({ color: 'black', rotation: 45 })
+            .setLngLat([station.lon, station.lat])
+            .setPopup(new mapboxgl.Popup().setHTML(
+                `
+                <b>Station Name</b></br>
+                <p>${station.name}</p></br>
+                <b>Provider: </b><p>${station.provider}</p></br>
+                <b>Vehicle Typ: </b><p>${station.vehicle_type}</p></br>
+                <b>URL: </b><p>${station.url ? station.url : 'n/a'}</p></br>
+                `
             ));
         return marker;
     });

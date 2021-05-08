@@ -59,9 +59,21 @@ class StationService:
 			# In case we found no location we return an empty dataframe...
 			return (location, empty_result)
 		# Optimization for querying stations in range, implemented with reference to: https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6#:~:text=Vectorization%20is%20the%20process%20of,check%20out%20the%20Pandas%20docs)
-		result = self.df[self.haversine(location.latitude, location.longitude, self.df['lat'], self.df['lon']) <= radius]
+		self.df = self.df[self.haversine(location.latitude, location.longitude, self.df['lat'], self.df['lon']) <= radius]
 
 		# Check if we need to match by vehicle_types, ignore if empty...
 		if len(vehicle_types) > 0:
-			result = result[result['vehicle_type'].isin(vehicle_types)]
+			self.df = self.df[self.df['vehicle_type'].isin(vehicle_types)]
+
+		# Extract the columns we want to send back and provide a more meaningful name...
+		result = pd.DataFrame({
+			'name' : self.df['name_station'],
+			'lat' : self.df['lat'],
+			'lon' : self.df['lon'],
+			'provider': self.df['name_provider'],
+			'vehicle_type': self.df['vehicle_type'],
+			'url': self.df['rental_uris.web'],
+		})
+
+
 		return (location, result)
