@@ -28,38 +28,30 @@
             <input class="uk-search-input" type="search" id="searchField" placeholder="Enter an address or location..." />
         </div>
         <div uk-grid class="uk-padding white">
-            <div class="uk-width-1-3@m">
-                <div class="chart-information">
-                    <h1 class="white">Info</h1>
-                    <p>
-                        Das Bar Chart soll die Anzahl der verschiedenen Distributoren aufgeschlüsselt nach Kanton darstellen (d.h Zürich hat 5 Anbieter, 2 bieten Velos an, 3 Autos).
-                    </p>
-                </div>
+            <div class="chart-information uk-width-1-1">
+                <h1 class="white">Info</h1>
+                <p>
+                    This bar chart visualizes all shared mobility providers grouped by vehicle type for the provided location.
+                </p>
             </div>
-            <div class="uk-width-2-3@m">
-                <div class="chart-card">
-                    <h1 class="title">Bar Chart</h1>
-                    <div class="content">
-                        <canvas id="barChart"></canvas>
-                    </div>
+            <div class="chart-card uk-width-1-1">
+                <h1 class="title">Bar Chart</h1>
+                <div class="content">
+                    <canvas id="barChart"></canvas>
                 </div>
             </div>
         </div>
         <div uk-grid class="uk-padding white">
-            <div class="uk-width-1-3@m">
-                <div class="chart-information">
-                    <h1 class="white">Info</h1>
-                    <p>
-                        Das Bubble Chart zeigt die verschiedenen Anbieter als Bubbles auf, wobei die Bubble Grösse von den Anzahl der Angebote (z.b Anzahl Velos etc.) abhängt.
-                    </p>
-                </div>
+            <div class="chart-information uk-width-1-1">
+                <h1 class="white">Info</h1>
+                <p>
+                    This bubble chart visualizes all shared mobility providers grouped by vehicle type for the provided location. The bubble size corresponds to the number of providers per vehicle type. The more providers, the bigger the bubble...
+                </p>
             </div>
-            <div class="uk-width-2-3@m">
-                <div class="chart-card">
-                    <h1 class="title">Bubble Chart</h1>
-                    <div class="content">
-                        <canvas id="bubbleChart"></canvas>
-                    </div>
+            <div class="chart-card uk-width-1-1">
+                <h1 class="title">Bubble Chart</h1>
+                <div class="content">
+                    <canvas id="bubbleChart"></canvas>
                 </div>
             </div>
         </div>
