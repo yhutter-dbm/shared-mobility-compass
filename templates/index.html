@@ -22,17 +22,13 @@
                 <li><a href="{{ url_for('data') }}">Data /</a></li>
             </ul>
         </div>
-        <div class="uk-navbar-right">
-            <ul class="uk-navbar-nav">
-                <a class="uk-navbar-item uk-logo" href="#"><span uk-icon="icon: location"></span></a>
-            </ul>
-        </div>
     </nav>
     <div class="uk-container-expanded map-and-filter-area">
         <div class="filter-area uk-padding-small">
             <span uk-icon="icon: search"></span>
             <input class="uk-search-input" type="search" id="searchField" placeholder="Enter an address or location..." />
-            <div class="uk-margin-large-top uk-margin-large-bottom">
+            <div class="uk-margin-large-top">
+                <p class="uk-margin-small-bottom">Filter by Vehicle Type</p>
                 <span class="uk-badge uk-padding-small uk-margin-small-top uk-margin-small-bottom">Bike</span>
                 <span class="uk-badge uk-padding-small">E-Bike</span>
                 <span class="uk-badge uk-padding-small">E-CargoBike</span>
