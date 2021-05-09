@@ -59,6 +59,8 @@ def create_app():
         if stations.empty:
             return {'barChart': None, 'bubbleChart': None}
 
+        stations = stations.sort_values(by='vehicle_type', ascending=True)
+
         # The bar chart as well as the bubble chart use the same data, they just show it in a different way.
         # We show how many stations (grouped by vehicle type) exists, e.g [E-Bike: 10, E-Scooter: 5] etc.
         labels = stations['vehicle_type'].unique().tolist()
