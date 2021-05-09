@@ -1,4 +1,16 @@
 const searchField = $("#searchField");
+const barChartElement = $("#barChart");
+const bubbleChartElement = $("#bubbleChart");
+const noBarChartContent = $("#noBarChartContent");
+const noBubbleChartContent = $("#noBubbleChartContent");
+
+const colorPalette = [
+    "#FFFFFF",
+    "#E2E2E2",
+    "#C6C6C6",
+    "#ABABAB",
+    "#919191",
+];
 
 // Initialize bar chart references...
 const barChartContext = document.getElementById("barChart").getContext("2d");
@@ -11,7 +23,9 @@ let barChart = new Chart(barChartContext, {
 });
 
 // Initialize bubble chart references...
-const minBubbleSize = 5;
+const maxBubbleSize = 50;
+const maxYBubbleChart = 400
+const maxXBubbleChart = 400
 const bubbleChartContext = document.getElementById("bubbleChart").getContext("2d");
 const bubbleChart = new Chart(bubbleChartContext, {
     type: "bubble",
@@ -25,14 +39,14 @@ const bubbleChart = new Chart(bubbleChartContext, {
                 ticks: {
                     beginAtZero: true,
                     min: 0,
-                    max: 400
+                    max: maxYBubbleChart
                 },
             }],
             xAxes: [{
                 ticks: {
                     beginAtZero: true,
                     min: 0,
-                    max: 400
+                    max: maxXBubbleChart
                 },
             }]
         },
@@ -55,7 +69,9 @@ function _updateBarChart(barChartLabels, barChartDataSet) {
     barChart.data.labels = barChartLabels;
     barChart.data.datasets = [{
         label: 'Number of Providers',
-        data: barChartDataSet.map(d => d['count'])
+        data: barChartDataSet.map(d => d['count']),
+        borderColor: colorPalette,
+        backgroundColor: colorPalette
     }];
     barChart.update();
 }
@@ -65,14 +81,22 @@ function _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet) {
 
     // Here we need to generate a dataset per vehicle type as we do not have a legend as in the bar chart.
     // See: https://www.chartjs.org/docs/latest/samples/other-charts/bubble.html
+
+    const counts = bubbleChartDataSet.map(d => d['count']);
+    const maxCount = Math.max(...counts);
     bubbleChart.data.datasets = bubbleChartDataSet.map(d => {
         return {
             label: d['vehicle_type'],
             data: [{
-                x: Math.floor(Math.random() * 400),
-                y: Math.floor(Math.random() * 400),
-                r: minBubbleSize * d['count']
+                // Do not allow the bubble to be placed inside the entire chart...
+                x: Math.floor(Math.random() * (maxXBubbleChart * 0.7)),
+                y: Math.floor(Math.random() * (maxYBubbleChart * 0.7)),
+
+                // Calculate radius based on fraction of the maxCount
+                r: Math.floor((1.0 / maxCount * d['count']) * maxBubbleSize)
             }],
+            borderColor: colorPalette,
+            backgroundColor: colorPalette
         };
     });
     bubbleChart.update();
@@ -81,8 +105,14 @@ function _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet) {
 
 
 function _doChartsRequest(address, radius) {
+    // We explicitely do NOT work with show and hide as this would result in removing the element from the DOM
+    // This in turn would have the effect that the charts would change their height, which is not intended.
     $.post('chartData', { 'address': address, 'radius': radius }, (response) => {
         if (response.barChartData && response.bubbleChartData) {
+            barChartElement.css("visibility", "visible");
+            bubbleChartElement.css("visibility", "visible");
+            noBarChartContent.css("visibility", "hidden");
+            noBubbleChartContent.css("visibility", "hidden");
             const barChartLabels = response.barChartData.labels;
             // We need to convert the stringify json into actual data
             const barChartDataSet = JSON.parse(response.barChartData.dataset);
@@ -95,10 +125,18 @@ function _doChartsRequest(address, radius) {
             _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet);
 
         } else {
+            barChartElement.css("visibility", "hidden");
+            bubbleChartElement.css("visibility", "hidden");
+            noBarChartContent.css("visibility", "visible");
+            noBubbleChartContent.css("visibility", "visible");
             _sendNotification("No results were found...");
         }
 
     }).fail(function(error) {
+        barChartElement.css("visibility", "hidden");
+        bubbleChartElement.css("visibility", "hidden");
+        noBarChartContent.css("visibility", "visible");
+        noBubbleChartContent.css("visibility", "visible");
         _sendNotification("An error occurred...");
     });
 }

@@ -43,6 +43,10 @@ body {
     color: white;
 }
 
+.center {
+    text-align: center
+}
+
 .background-black {
     background: black;
 }
