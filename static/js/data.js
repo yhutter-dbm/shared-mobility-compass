@@ -1,77 +1,112 @@
-function _initializeBarChart() {
-    // See: https://www.chartjs.org/docs/latest/
-    var ctx = document.getElementById("barChart").getContext("2d");
-    var myBarChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-            datasets: [{
-                label: "# of Votes",
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    "rgba(255, 99, 132, 0.2)",
-                    "rgba(54, 162, 235, 0.2)",
-                    "rgba(255, 206, 86, 0.2)",
-                    "rgba(75, 192, 192, 0.2)",
-                    "rgba(153, 102, 255, 0.2)",
-                    "rgba(255, 159, 64, 0.2)",
-                ],
-                borderColor: [
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(255, 206, 86, 1)",
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(153, 102, 255, 1)",
-                    "rgba(255, 159, 64, 1)",
-                ],
-                borderWidth: 1,
-            }, ],
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                }, ],
-            },
-        },
-    });
-}
+const searchField = $("#searchField");
 
-function _createBubbleChartData() {
-    let data = [];
-    for (var i = 0; i < 100; i++) {
-        const x = Math.floor(Math.random() * 400);
-        const y = Math.floor(Math.random() * 400);
-        const r = Math.floor(Math.random() * 5 + 1);
-        data.push({ x, y, r });
+// Initialize bar chart references...
+const barChartContext = document.getElementById("barChart").getContext("2d");
+let barChart = new Chart(barChartContext, {
+    type: "bar",
+    data: {
+        labels: [],
+        datasets: [],
     }
-    return data;
+});
+
+// Initialize bubble chart references...
+const minBubbleSize = 5;
+const bubbleChartContext = document.getElementById("bubbleChart").getContext("2d");
+const bubbleChart = new Chart(bubbleChartContext, {
+    type: "bubble",
+    data: {
+        labels: [],
+        datasets: []
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 400
+                },
+            }],
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    min: 0,
+                    max: 400
+                },
+            }]
+        },
+    },
+});
+
+function _handleSearch() {
+    const address = searchField.val().trim();
+
+    if (!address) {
+        _sendNotification("No address was entered");
+        return;
+    }
+
+    const radius = 10;
+    _doChartsRequest(address, radius);
 }
 
-function _initializeBubbleChart() {
-    // See: https://www.chartjs.org/docs/latest/charts/bubble.html
-    var ctx = document.getElementById("bubbleChart").getContext("2d");
-    var myBubbleChart = new Chart(ctx, {
-        type: "bubble",
-        data: {
-            datasets: [{
-                    label: "Group 1",
-                    data: _createBubbleChartData(),
-                    backgroundColor: "rgba(255, 99, 132, 0.8)",
-                    hoverBackgroundColor: "rgba(255, 99, 132, 0.8)",
-                },
-                {
-                    label: "Group 2",
-                    data: _createBubbleChartData(),
-                    backgroundColor: "rgba(54, 162, 235, 0.8)",
-                    hoverBackgroundColor: "rgba(54, 162, 235, 0.8)",
-                },
-            ],
-        },
+function _updateBarChart(barChartLabels, barChartDataSet) {
+    barChart.data.labels = barChartLabels;
+    barChart.data.datasets = [{
+        label: 'Number of Providers',
+        data: barChartDataSet.map(d => d['count'])
+    }];
+    barChart.update();
+}
+
+function _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet) {
+    bubbleChart.data.labels = bubbleChartLabels;
+
+    // Here we need to generate a dataset per vehicle type as we do not have a legend as in the bar chart.
+    // See: https://www.chartjs.org/docs/latest/samples/other-charts/bubble.html
+    bubbleChart.data.datasets = bubbleChartDataSet.map(d => {
+        return {
+            label: d['vehicle_type'],
+            data: [{
+                x: Math.floor(Math.random() * 400),
+                y: Math.floor(Math.random() * 400),
+                r: minBubbleSize * d['count']
+            }],
+        };
+    });
+    bubbleChart.update();
+}
+
+
+
+function _doChartsRequest(address, radius) {
+    $.post('chartData', { 'address': address, 'radius': radius }, (response) => {
+        if (response.barChartData && response.bubbleChartData) {
+            const barChartLabels = response.barChartData.labels;
+            // We need to convert the stringify json into actual data
+            const barChartDataSet = JSON.parse(response.barChartData.dataset);
+            _updateBarChart(barChartLabels, barChartDataSet);
+
+
+            const bubbleChartLabels = response.bubbleChartData.labels;
+            // We need to convert the stringify json into actual data
+            const bubbleChartDataSet = JSON.parse(response.bubbleChartData.dataset);
+            _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet);
+
+        } else {
+            _sendNotification("No results were found...");
+        }
+
+    }).fail(function(error) {
+        _sendNotification("An error occurred...");
     });
 }
 
-_initializeBarChart();
-_initializeBubbleChart();
+// Register event handlers
+searchField.on('keyup', (event) => {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        event.preventDefault();
+        _handleSearch();
+    }
+});

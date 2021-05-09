@@ -124,11 +124,6 @@ function _handleFilters() {
     _doStationsRequest(address, radius, false, vehicleTypes);
 }
 
-function _sendNotification(message) {
-    UIkit.notification(message, { pos: 'bottom-center' });
-}
-
-
 // Register event handlers
 searchField.on('keyup', (event) => {
     if (event.key === 'Enter' || event.keyCode === 13) {

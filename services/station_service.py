@@ -74,6 +74,12 @@ class StationService:
 			'vehicle_type': result['vehicle_type'],
 			'url': result['rental_uris.web'],
 		})
-
-
 		return (location, minified_result)
+
+	def group_by_vehicle_type(self, stations):
+		# First of all we initialize all rows with a count column and a value of 1.
+		# This makes it more easily to get a count per vehicle type after the group by.
+		stations['count'] = 1
+
+		# We use as_index to get actual columns back, see: https://realpython.com/pandas-groupby/
+		return stations.groupby(['vehicle_type'], as_index=False)['count'].count()

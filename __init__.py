@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import jsonify
 from .services.station_service import StationService 
 
 def create_app():
@@ -48,4 +49,22 @@ def create_app():
         if stations.empty:
             return {'stations': [], 'longitude': longitude, 'latitude': latitude }
         return {'stations': stations.to_json(orient="records"), 'longitude': longitude, 'latitude': latitude }
+
+
+    @app.route('/chartData', methods=['POST'])
+    def charts():
+        address = request.form.get('address')
+        radius = int(request.form.get('radius'))
+        location, stations = station_service.query_stations(address, radius)
+        if stations.empty:
+            return {'barChart': None, 'bubbleChart': None}
+
+        # The bar chart as well as the bubble chart use the same data, they just show it in a different way.
+        # We show how many stations (grouped by vehicle type) exists, e.g [E-Bike: 10, E-Scooter: 5] etc.
+        labels = stations['vehicle_type'].unique().tolist()
+        print(labels)
+        grouped_by_vehicle_type = station_service.group_by_vehicle_type(stations)
+
+        return {'barChartData': { 'labels': labels, 'dataset': grouped_by_vehicle_type.to_json(orient="records") }, 'bubbleChartData': { 'labels': labels, 'dataset': grouped_by_vehicle_type.to_json(orient="records") } }
+
     return app
