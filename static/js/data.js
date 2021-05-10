@@ -78,27 +78,25 @@ function _updateBarChart(barChartLabels, barChartDataSet) {
 
 function _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet) {
     bubbleChart.data.labels = bubbleChartLabels;
-
-    // Here we need to generate a dataset per vehicle type as we do not have a legend as in the bar chart.
     // See: https://www.chartjs.org/docs/latest/samples/other-charts/bubble.html
 
     const counts = bubbleChartDataSet.map(d => d['count']);
     const maxCount = Math.max(...counts);
-    bubbleChart.data.datasets = bubbleChartDataSet.map(d => {
-        return {
-            label: d['vehicle_type'],
-            data: [{
+    bubbleChart.data.datasets = [{
+        label: 'Number of Providers',
+        data: bubbleChartDataSet.map(d => {
+            return {
                 // Do not allow the bubble to be placed inside the entire chart...
                 x: Math.floor(Math.random() * (maxXBubbleChart * 0.7)),
                 y: Math.floor(Math.random() * (maxYBubbleChart * 0.7)),
 
                 // Calculate radius based on fraction of the maxCount
                 r: Math.floor((1.0 / maxCount * d['count']) * maxBubbleSize)
-            }],
-            borderColor: colorPalette,
-            backgroundColor: colorPalette
-        };
-    });
+            };
+        }),
+        borderColor: colorPalette,
+        backgroundColor: colorPalette
+    }];
     bubbleChart.update();
 }
 
