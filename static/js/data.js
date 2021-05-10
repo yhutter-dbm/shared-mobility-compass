@@ -117,6 +117,7 @@ function _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet) {
 function _doChartsRequest(address, radius) {
     // We explicitely do NOT work with show and hide as this would result in removing the element from the DOM
     // This in turn would have the effect that the charts would change their height, which is not intended.
+    NProgress.start();
     $.post('chartData', { 'address': address, 'radius': radius }, (response) => {
         if (response.barChartData && response.bubbleChartData) {
             barChartElement.css("visibility", "visible");
@@ -141,8 +142,10 @@ function _doChartsRequest(address, radius) {
             noBubbleChartContent.css("visibility", "visible");
             _sendNotification("No results were found...");
         }
+        NProgress.done();
 
     }).fail(function(error) {
+        NProgress.done();
         barChartElement.css("visibility", "hidden");
         bubbleChartElement.css("visibility", "hidden");
         noBarChartContent.css("visibility", "visible");

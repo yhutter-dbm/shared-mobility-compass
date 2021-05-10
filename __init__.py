@@ -64,7 +64,6 @@ def create_app():
         # The bar chart as well as the bubble chart use the same data, they just show it in a different way.
         # We show how many stations (grouped by vehicle type) exists, e.g [E-Bike: 10, E-Scooter: 5] etc.
         labels = stations['vehicle_type'].unique().tolist()
-        print(labels)
         grouped_by_vehicle_type = station_service.group_by_vehicle_type(stations)
 
         return {'barChartData': { 'labels': labels, 'dataset': grouped_by_vehicle_type.to_json(orient="records") }, 'bubbleChartData': { 'labels': labels, 'dataset': grouped_by_vehicle_type.to_json(orient="records") } }

@@ -55,6 +55,7 @@ function _createMarkersFromStations(stations) {
 }
 
 function _doStationsRequest(address, radius, flyTo, vehicleTypes = [], ) {
+    NProgress.start();
     $.post('stations', { 'address': address, 'radius': radius, 'vehicleTypes[]': vehicleTypes }, (response) => {
         // Clear all previous markers
         _clearMarkers(markers);
@@ -78,7 +79,9 @@ function _doStationsRequest(address, radius, flyTo, vehicleTypes = [], ) {
         if (!!response.longitude && !!response.latitude && flyTo) {
             map.flyTo({ center: [response.longitude, response.latitude] });
         }
+        NProgress.done();
     }).fail(function(error) {
+        NProgress.done();
         _sendNotification("An error occurred...");
     });
 }
