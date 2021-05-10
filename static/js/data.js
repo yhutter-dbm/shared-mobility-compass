@@ -50,6 +50,17 @@ const bubbleChart = new Chart(bubbleChartContext, {
                 },
             }]
         },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        const index = context.dataIndex;
+                        const bubble = context.dataset.data[index];
+                        return `${bubble.vehicleType}: ${bubble.count}`
+                    }
+                }
+            }
+        }
     },
 });
 
@@ -89,9 +100,10 @@ function _updateBubbleChart(bubbleChartLabels, bubbleChartDataSet) {
                 // Do not allow the bubble to be placed inside the entire chart...
                 x: Math.floor(Math.random() * (maxXBubbleChart * 0.7)),
                 y: Math.floor(Math.random() * (maxYBubbleChart * 0.7)),
-
                 // Calculate radius based on fraction of the maxCount
-                r: Math.floor((1.0 / maxCount * d['count']) * maxBubbleSize)
+                r: Math.floor((1.0 / maxCount * d['count']) * maxBubbleSize),
+                vehicleType: d['vehicle_type'],
+                count: d['count']
             };
         }),
         borderColor: colorPalette,
