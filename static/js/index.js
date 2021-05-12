@@ -115,7 +115,7 @@ function _handleFilters() {
     const selectedVehicleTypeBadges = $(".uk-badge.selected")
 
     // Create a list containing the HTML Text of each selected badge
-    const vehicleTypes = $.isEmptyObject(selectedVehicleTypeBadges) ? [] : selectedVehicleTypeBadges.toArray().map((v) => v.innerHTML);
+    const vehicleTypes = $.isEmptyObject(selectedVehicleTypeBadges) ? [] : selectedVehicleTypeBadges.toArray().map((v) => $(v).data('vehicle-type'));
     const address = searchField.val().trim();
 
     if (!address) {
