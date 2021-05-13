@@ -37,16 +37,17 @@ function _clearMarkers(markers) {
 
 function _createMarkersFromStations(stations) {
     const markers = stations.map(station => {
+        console.log(station);
+        console.log(station.url);
         const marker = new mapboxgl
             .Marker({ color: 'black', rotation: 45 })
             .setLngLat([station.lon, station.lat])
             .setPopup(new mapboxgl.Popup().setHTML(
                 `
-                <b>Station Name</b></br>
-                <p>${station.name}</p></br>
-                <b>Provider: </b><p>${station.provider}</p></br>
-                <b>Vehicle Typ: </b><p>${station.vehicle_type}</p></br>
-                <b>URL: </b><p>${station.url ? station.url : 'n/a'}</p></br>
+                <b>${station.name}</b></br>
+                <p><b>Provider: </b> ${station.provider}</p>
+                <p><b>Vehicle Typ: </b> ${station.vehicle_type}</p>
+                <p><b>URL: </b>${station.url ? station.url : 'n/a'}</p>
                 `
             ));
         return marker;
