@@ -34,6 +34,13 @@ function _clearMarkers(markers) {
     markers = [];
 }
 
+function _getPopUpURL(url) {
+    if (url) {
+        return `<a class="url-link" target="_blank" href="${url}">Link</a>`
+    }
+    return 'n/a'
+}
+
 
 function _createMarkersFromStations(stations) {
     const markers = stations.map(station => {
@@ -50,7 +57,7 @@ function _createMarkersFromStations(stations) {
                 <div class="content">
                     <p>Provider: ${station.provider}</p>
                     <p>Vehicle Typ: ${station.vehicle_type}</p>
-                    <p>URL: ${station.url ? station.url : 'n/a'}</p>
+                    <p>URL: ${_getPopUpURL(station.url)}</p>
                 </div>
                 `
             ));

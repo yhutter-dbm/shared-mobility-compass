@@ -74,6 +74,14 @@
   border-radius: 3px 3px 0 0;
 }
 
+.mapboxgl-popup-content .url-link { 
+    color: white;
+}
+
+.mapboxgl-popup-content .url-link:hover { 
+    color: black;
+}
+
 .mapboxgl-popup-content .header {
   background: black;
   margin-top: -15px;
