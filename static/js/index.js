@@ -44,10 +44,14 @@ function _createMarkersFromStations(stations) {
             .setLngLat([station.lon, station.lat])
             .setPopup(new mapboxgl.Popup().setHTML(
                 `
-                <b>${station.name}</b></br>
-                <p><b>Provider: </b> ${station.provider}</p>
-                <p><b>Vehicle Typ: </b> ${station.vehicle_type}</p>
-                <p><b>URL: </b>${station.url ? station.url : 'n/a'}</p>
+                <div class="header">
+                    <h3>${station.name}</h3>
+                </div>
+                <div class="content">
+                    <p>Provider: ${station.provider}</p>
+                    <p>Vehicle Typ: ${station.vehicle_type}</p>
+                    <p>URL: ${station.url ? station.url : 'n/a'}</p>
+                </div>
                 `
             ));
         return marker;

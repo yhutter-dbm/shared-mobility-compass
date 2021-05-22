@@ -64,8 +64,3 @@ body {
 .uk-notification-close.uk-icon.uk-close:hover {
     color: black;
 }
-
-.mapboxgl-popup {
-    width: 600px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-}

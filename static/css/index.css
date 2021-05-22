@@ -47,3 +47,48 @@
     position: absolute;
     bottom: 10px;
 }
+
+
+
+/* Style marker popup: https://docs.mapbox.com/help/tutorials/building-a-store-locator/ */
+.mapboxgl-popup {
+    width: 600px;
+    font: 12px/20px 'PlainRegular', sans-serif;
+}
+
+.mapboxgl-popup-close-button {
+    display: none;
+}
+
+.mapboxgl-popup-tip {
+    display: none;
+}
+
+
+.mapboxgl-popup-content {
+  background: #999999;
+  color: #fff;
+  margin: 0;
+  display: block;
+  padding: 0;
+  border-radius: 3px 3px 0 0;
+}
+
+.mapboxgl-popup-content .header {
+  background: black;
+  margin-top: -15px;
+}
+
+.mapboxgl-popup-content .header h3 {
+  color: #fff;
+  font-size: 1.5em;
+  padding: 10px;
+}
+
+
+.mapboxgl-popup-content .content {
+  padding: 10px;
+  color: black;
+}
+
+
