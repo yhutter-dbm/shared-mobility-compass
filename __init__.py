@@ -25,16 +25,6 @@ def create_app():
         return render_template('data.html')
 
 
-    @app.route('/route')
-    def route():
-        return render_template('route.html')
-
-
-    @app.route('/shared_mobility_data')
-    def shared_mobility_data():
-        return render_template('shared-mobility-data.html')
-
-
     @app.route('/stations', methods=['POST'])
     def stations():
         address = request.form.get('address')
